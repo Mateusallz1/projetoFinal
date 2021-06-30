@@ -13,4 +13,3 @@ class PostsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Posts
         fields = ('text', 'post_coments')
-
