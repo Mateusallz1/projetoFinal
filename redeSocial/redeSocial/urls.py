@@ -16,6 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from socialmedia import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('posts/', views.PostsList.as_view(), name=views.PostsList.name),
+    path('post/<int:pk>', views.PostsDetail.as_view(), name=views.PostsDetail.name),
+    path('coments/', views.ComentsList.as_view(), name=views.ComentsList.name),
+    path('coment/<int:pk>', views.ComentsDetail.as_view(), name=views.ComentsDetail.name),
 ]
