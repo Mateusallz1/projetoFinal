@@ -24,4 +24,6 @@ urlpatterns = [
     path('post/<int:pk>', views.PostsDetail.as_view(), name=views.PostsDetail.name),
     path('coments/', views.ComentsList.as_view(), name=views.ComentsList.name),
     path('coment/<int:pk>', views.ComentsDetail.as_view(), name=views.ComentsDetail.name),
+    path('post-comments/', views.PostCommentsList.as_view(), name=views.PostCommentsList.name),
+    path('post-comments/<int:pk>', views.PostCommentsDetail.as_view(), name=views.PostCommentsDetail.name),
 ]

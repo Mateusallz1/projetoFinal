@@ -14,3 +14,9 @@ class PostsSerializer(serializers.ModelSerializer):
         model = Posts
         fields = ('post_id','title','text')
 
+class PostComentsSerializer(serializers.HyperlinkedModelSerializer):
+    comments = serializers.StringRelatedField(many=True, read_only=True)
+
+    class Meta:
+        model = Posts
+        fields = ('post_id','title','text', 'comments')
