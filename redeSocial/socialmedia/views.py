@@ -3,7 +3,7 @@ from django.shortcuts import render
 from rest_framework import generics, serializers
 
 from .models import Posts, Coments
-from .serializers import PostsSerializer, ComentsSerializer, PostComentsSerializer
+from .serializers import PostsSerializer, ComentsSerializer
 
 # Create your views here.
 
@@ -29,10 +29,10 @@ class ComentsDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class PostCommentsList(generics.ListCreateAPIView):
     queryset = Posts.objects.all()
-    serializer_class = PostComentsSerializer
-    name = 'posts-comments-list'
+    serializer_class = PostsSerializer
+    name = 'posts-comments'
 
 class PostCommentsDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Posts.objects.all()
-    serializer_class = PostComentsSerializer
-    name = 'posts-comments-detail'
+    serializer_class = PostsSerializer
+    name = 'posts-comments'
