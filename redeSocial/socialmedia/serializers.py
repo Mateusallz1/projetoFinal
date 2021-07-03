@@ -10,7 +10,8 @@ class ComentsSerializer(serializers.ModelSerializer):
 
 
 class PostsSerializer(serializers.ModelSerializer):
+    comments = serializers.SlugRelatedField(many=True,read_only=True,slug_field='body_text')
+    
     class Meta:
         model = Posts
-        fields = ('post_id','title','text')
-
+        fields = ('post_id','title','text','comments')
