@@ -29,10 +29,10 @@ class ComentsDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class PostCommentsList(generics.ListCreateAPIView):
     queryset = Posts.objects.all()
-    serializers_class = PostComentsSerializer
+    serializer_class = PostComentsSerializer
     name = 'posts-comments-list'
 
 class PostCommentsDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Posts.objects.all()
-    serializers_class = PostComentsSerializer
+    serializer_class = PostComentsSerializer
     name = 'posts-comments-detail'
