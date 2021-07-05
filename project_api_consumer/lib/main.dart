@@ -6,8 +6,13 @@ import 'package:http/http.dart' as http;
 
  Future<List<Post>> fetchPosts(http.Client client) async {
   final response =
-    await client.get(Uri.parse('http://127.0.0.1:8000/posts'));
-  return compute(parsePost, response.body);
+    await client.get(Uri.parse('http://127.0.0.1:8000/post-comments/'));
+  
+  if (response.statusCode == 200) {
+      return compute(parsePost, response.body);
+  } else {
+    throw Exception('Failed to load Posts.');
+  }
   // Caso dê merda: 26:30
 }
 
@@ -63,9 +68,20 @@ class MyHomePage extends StatelessWidget {
 class PostsList extends StatelessWidget {
   final List<Post> posts;
   PostsList({Key key, this.posts}) : super(key: key);
+  
+  
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
+    return ListView.builder(
+      itemCount: posts.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text('${posts[index].title}'),
+          //onTap: (),
+        );
+      }
+    );
+    /* return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 1,
       ),
@@ -76,7 +92,7 @@ class PostsList extends StatelessWidget {
           title: Text(posts[index].title),
         );
       },
-    );
+    ); */
   }
 }
 
@@ -100,14 +116,14 @@ class Post {
 }
 
 class Comments {
-  final int commentId;
+  //final int commentId;
   final String bodyText;
 
-  Comments({this.commentId, this.bodyText,});
+  Comments({/*this.commentId,*/ this.bodyText,});
 
   factory Comments.fromJson(Map<String, dynamic> json) {
     return Comments(
-      commentId: json['comment_id'] as int, 
+      //commentId: json['comment_id'] as int, 
       bodyText: json['body_text'] as String,
     );
   }
