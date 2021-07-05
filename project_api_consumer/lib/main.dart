@@ -13,7 +13,6 @@ import 'package:http/http.dart' as http;
   } else {
     throw Exception('Failed to load Posts.');
   }
-  // Caso dê merda: 26:30
 }
 
 
@@ -28,7 +27,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     final appTitle = 'Será se funfa?';
@@ -77,22 +75,11 @@ class PostsList extends StatelessWidget {
       itemBuilder: (context, index) {
         return ListTile(
           title: Text('${posts[index].title}'),
-          //onTap: (),
+          onTap: () {
+          },
         );
       }
     );
-    /* return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 1,
-      ),
-      itemCount: posts.length,
-      itemBuilder: (context, index) {
-        //posts[index].title
-        return ListTile(
-          title: Text(posts[index].title),
-        );
-      },
-    ); */
   }
 }
 
@@ -116,14 +103,12 @@ class Post {
 }
 
 class Comments {
-  //final int commentId;
   final String bodyText;
 
-  Comments({/*this.commentId,*/ this.bodyText,});
+  Comments({this.bodyText,});
 
   factory Comments.fromJson(Map<String, dynamic> json) {
     return Comments(
-      //commentId: json['comment_id'] as int, 
       bodyText: json['body_text'] as String,
     );
   }
