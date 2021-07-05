@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; 
 import 'package:http/http.dart' as http;
 
 
-Future<List<Post>> fetchPosts(http.Client client) async {
+ Future<List<Post>> fetchPosts(http.Client client) async {
   final response =
-    await client.get(Uri.parse('http://localhost:8000/posts/'));
+    await client.get(Uri.parse('http://127.0.0.1:8000/posts'));
   return compute(parsePost, response.body);
+  // Caso dê merda: 26:30
 }
 
 
@@ -66,11 +67,14 @@ class PostsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
+        crossAxisCount: 1,
       ),
       itemCount: posts.length,
       itemBuilder: (context, index) {
-        return Image.network(posts[index].title);
+        //posts[index].title
+        return ListTile(
+          title: Text(posts[index].title),
+        );
       },
     );
   }
@@ -78,18 +82,33 @@ class PostsList extends StatelessWidget {
 
 
 class Post {
-  final int postid;
+  final int postId;
   final String title;
   final String text;
+  final List<Comments> comments;
 
-  Post({this.postid, this.text, this.title,});
+  Post({this.postId, this.text, this.title, this.comments});
 
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
-      postid: json['postid'] as int,
+      postId: json['post_id'] as int,
       title: json['title'] as String,
       text: json['text'] as String,
+      comments: json['comments'] as List,
     );
   }
 }
 
+class Comments {
+  final int commentId;
+  final String bodyText;
+
+  Comments({this.commentId, this.bodyText,});
+
+  factory Comments.fromJson(Map<String, dynamic> json) {
+    return Comments(
+      commentId: json['comment_id'] as int, 
+      bodyText: json['body_text'] as String,
+    );
+  }
+}
