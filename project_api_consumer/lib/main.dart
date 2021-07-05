@@ -101,7 +101,7 @@ class Post {
   final int postId;
   final String title;
   final String text;
-  final List<Comments> comments;
+  final List<dynamic> comments;
 
   Post({this.postId, this.text, this.title, this.comments});
 
