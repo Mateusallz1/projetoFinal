@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'Flutter Demo',
-      home: MyHomePage(title: appTitle,),
+      home: MyHomePage(null, appTitle,),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatelessWidget {
   final String title;
-    MyHomePage({Key key, this.title}) : super(key: key);
+    MyHomePage(Key? key, this.title) : super(key: key);
 
     @override
     Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class MyHomePage extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasError) print(snapshot.error);
               return snapshot.hasData
-              ? PostsList(posts: snapshot.data)
+              ? PostsList(posts: snapshot.data!)
               : Center(child: CircularProgressIndicator());
         },
       ),
@@ -69,7 +69,7 @@ class MyHomePage extends StatelessWidget {
 
 class PostsList extends StatelessWidget {
   final List<Post> posts;
-  PostsList({Key key, this.posts}) : super(key: key);
+  PostsList({Key? key, required this.posts}) : super(key: key);
   
   
   @override
@@ -93,7 +93,7 @@ class Post {
   final String text;
   final List<dynamic> comments;
 
-  Post({this.postId, this.text, this.title, this.comments});
+  Post({required this.postId, required this.text, required this.title, required this.comments});
 
   Map<String, dynamic> postToMap() {
     return {
@@ -123,7 +123,7 @@ class Comments {
   final int commentId;
   final String bodyText;
 
-  Comments({this.commentId, this.bodyText,});
+  Comments({required this.commentId, required this.bodyText,});
 
   Map<String, dynamic> commentToMap() {
     return {
