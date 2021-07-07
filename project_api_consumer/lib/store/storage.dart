@@ -10,15 +10,14 @@ import 'package:project_api_consumer/main.dart';
 
 void storage(var postsList) async {
   WidgetsFlutterBinding.ensureInitialized();
-  String path = join(await getDatabasesPath(), 'database.db');
-  Database database = await openDatabase(
-    path,
-    version: 1,
-    onCreate: (db, version) async {
-      await db.execute('CREATE TABLE posts(id INTEGER PRIMARY KEY, title TEXT, text TEXT, comments TEXT)');
-      await db.execute('CREATE TABLE comments(id INTEGER PRIMARY KEY, body_text TEXT)');
+  final database = openDatabase(
+    join(await getDatabasesPath(), 'assets/database.db'),
+    onCreate: (db, version) {
+      db.execute('CREATE TABLE posts(id INTEGER PRIMARY KEY, title TEXT, text TEXT, comments TEXT)');
+      db.execute('CREATE TABLE comments(id INTEGER PRIMARY KEY, body_text TEXT)');
     },
-  );
+    version: 1,
+  ); 
 
   Future<void> insertPost(Post postage) async {
     final db = await database;
