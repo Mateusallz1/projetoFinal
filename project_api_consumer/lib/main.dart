@@ -80,6 +80,15 @@ class PostsList extends StatelessWidget {
         return ListTile(
           title: Text('${posts[index].title}'),
           onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetailPost(comments: [posts[index]],),
+               /*  settings: RouteSettings(
+                    arguments: posts[index],
+                ), */
+              ),
+            );
           },
         );
       }
@@ -87,11 +96,39 @@ class PostsList extends StatelessWidget {
   }
 }
 
+
+class DetailPost extends StatelessWidget {
+  final List<dynamic> comments;
+  DetailPost({Key? key, required this.comments}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Comentários'),
+      ),
+      body: ListView.builder(
+        itemCount: comments.length,
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              ListTile(
+                title: Text('${comments[index].comments}'),
+              ),
+            ],
+          );
+        },
+      )
+    );
+  }
+}
+
+
 class Post {
   final int postId;
   final String title;
   final String text;
-  final List<dynamic> comments;
+  final List<Post> comments;
 
   Post({required this.postId, required this.text, required this.title, required this.comments});
 
@@ -114,7 +151,7 @@ class Post {
       postId: json['post_id'] as int,
       title: json['title'] as String,
       text: json['text'] as String,
-      comments: json['comments'] as List,
+      comments: json['comments'] as List<Post>,
     );
   }
 }
