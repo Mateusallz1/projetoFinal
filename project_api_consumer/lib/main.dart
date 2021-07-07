@@ -13,7 +13,8 @@ import 'package:project_api_consumer/store/storage.dart';
     await client.get(Uri.parse('http://127.0.0.1:8000/post-comments/'));
   
   if (response.statusCode == 200) {
-    storage(response.body);
+    var post = parsePost(response.body);
+    storage(post);
     return compute(parsePost, response.body);
   } else {
     throw Exception('Failed to load Posts.');
@@ -128,7 +129,7 @@ class Post {
   final int postId;
   final String title;
   final String text;
-  final List<Post> comments;
+  final List<dynamic> comments;
 
   Post({required this.postId, required this.text, required this.title, required this.comments});
 
@@ -151,7 +152,7 @@ class Post {
       postId: json['post_id'] as int,
       title: json['title'] as String,
       text: json['text'] as String,
-      comments: json['comments'] as List<Post>,
+      comments: json['comments'] as List<dynamic>,
     );
   }
 }
