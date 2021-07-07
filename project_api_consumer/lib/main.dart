@@ -79,6 +79,7 @@ class PostsList extends StatelessWidget {
       itemBuilder: (context, index) {
         return ListTile(
           title: Text('${posts[index].title}'),
+          subtitle: Text('${posts[index].text}'),
           onTap: () {
             Navigator.push(
               context,
