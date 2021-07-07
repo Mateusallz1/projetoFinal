@@ -8,7 +8,7 @@ import 'package:sqflite/sqflite.dart';
 
 import 'package:project_api_consumer/main.dart';
 
-void storage(var postsList) async {
+void storage(List<Post> postsList) async {
   WidgetsFlutterBinding.ensureInitialized();
   final database = openDatabase(
     join(await getDatabasesPath(), 'assets/database.db'),
@@ -84,8 +84,7 @@ void storage(var postsList) async {
   }
 
   for (var i in postsList) {
-    i['comments'] ??= 'none';
-    i = Post(postId: i['post_id'],title: i['title'], text: i['text'], comments: i['comments']);
+    i = Post(postId: i.postId,title: i.title, text: i.text, comments: i.comments);
     await insertPost(i);
   }
 
