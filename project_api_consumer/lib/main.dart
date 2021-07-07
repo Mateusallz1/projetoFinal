@@ -14,8 +14,8 @@ import 'package:project_api_consumer/store/storage.dart';
     await client.get(Uri.parse('http://127.0.0.1:8000/post-comments/'));
   
   if (response.statusCode == 200) {
-    //var post = parsePost(response.body);
-    //storage(post);
+    var post = parsePost(response.body);
+    storage(post);
     return compute(parsePost, response.body);
   } else {
     throw Exception('Failed to load Posts.');
@@ -35,7 +35,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final appTitle = 'Será se funfa?';
+    final appTitle = 'API Consumer';
 
     return MaterialApp(
       title: 'Flutter Demo',
