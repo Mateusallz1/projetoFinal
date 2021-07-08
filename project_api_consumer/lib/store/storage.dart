@@ -9,17 +9,24 @@ import 'package:sqflite/sqflite.dart';
 import 'package:project_api_consumer/main.dart';
 
 void storage(List<Post> postsList) async {
-  WidgetsFlutterBinding.ensureInitialized();
-  final database = openDatabase(
-    join(await getDatabasesPath(), 'assets/database.db'),
-    onCreate: (db, version) {
-      db.execute('CREATE TABLE posts(id INTEGER PRIMARY KEY, title TEXT, text TEXT, comments TEXT)');
-      db.execute('CREATE TABLE comments(id INTEGER PRIMARY KEY, body_text TEXT)');
-    },
-    version: 1,
-  ); 
+  Future<Database> getDatabase() async{
+    final databasesPath = await getDatabasesPath();
+    final path = join(databasesPath, "assets/database.db");
+    WidgetsFlutterBinding.ensureInitialized();
+    final database = await openDatabase(
+      path,
+      onCreate: (db, version) {
+        db.execute('CREATE TABLE posts(id INTEGER PRIMARY KEY, title TEXT, text TEXT, comments TEXT)');
+        db.execute('CREATE TABLE comments(id INTEGER PRIMARY KEY, body_text TEXT)');
+      },
+      version: 1,
+    );
+    return database;
+  }
 
   Future<void> insertPost(Post postage) async {
+    Future<Database> database = getDatabase();
+
     final db = await database;
     await db.insert(
       'posts',
@@ -29,6 +36,8 @@ void storage(List<Post> postsList) async {
   }
 
   Future<List<Post>> postList() async {
+    Future<Database> database = getDatabase();
+
     final db = await database;
 
     final List<Map<String, dynamic>> maps = await db.query('posts');
@@ -44,6 +53,8 @@ void storage(List<Post> postsList) async {
   }
 
   Future<void> deletePost(int id) async {
+    Future<Database> database = getDatabase();
+    
     final db = await database;
     await db.delete(
       'posts',
@@ -53,6 +64,8 @@ void storage(List<Post> postsList) async {
   }
 
   Future<void> insertComment(Comments comentary) async {
+    Future<Database> database = getDatabase();
+    
     final db = await database;
     await db.insert(
       'comments',
@@ -62,6 +75,8 @@ void storage(List<Post> postsList) async {
   }
 
   Future<List<Comments>> commentsList() async {
+    Future<Database> database = getDatabase();
+    
     final db = await database;
 
     final List<Map<String, dynamic>> maps = await db.query('comments');
@@ -75,6 +90,8 @@ void storage(List<Post> postsList) async {
   }
 
   Future<void> deleteComment(int id) async {
+    Future<Database> database = getDatabase();
+    
     final db = await database;
     await db.delete(
       'comments',
@@ -88,6 +105,7 @@ void storage(List<Post> postsList) async {
     await insertPost(i);
   }
 
+  Future<Database> database = getDatabase();
   final db = await database;
   await db.close();
 }

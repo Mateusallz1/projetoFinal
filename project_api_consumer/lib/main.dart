@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart'; 
 
 import 'package:http/http.dart' as http;
+import 'package:project_api_consumer/download/downloadingData.dart';
 
 import 'package:project_api_consumer/store/storage.dart';
 
@@ -34,7 +35,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final appTitle = 'Será se funfa?';
+    final appTitle = 'API Consumer';
 
     return MaterialApp(
       title: 'Flutter Demo',
@@ -66,6 +67,8 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
+
+
 
 
 class PostsList extends StatelessWidget {
