@@ -19,7 +19,7 @@ class Coments(models.Model):
     postId = models.ForeignKey(Posts, related_name='comments', on_delete=models.CASCADE)
 
     class Meta:
-        ordering = ('comment_id')
+        ordering = ('comment_id',)
 
     def __str__(self):
         return self.postId
