@@ -11,7 +11,7 @@ class Posts(models.Model):
         ordering = ('text',)
 
     def __str__(self):
-        return self.text
+        return self.post_id
 
 class Coments(models.Model):
     comment_id = models.AutoField(primary_key=True)
@@ -19,4 +19,4 @@ class Coments(models.Model):
     postId = models.ForeignKey(Posts, related_name='comments', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.text
+        return self.postId
