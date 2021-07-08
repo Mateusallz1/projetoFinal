@@ -8,7 +8,7 @@ class Posts(models.Model):
     text = models.CharField(max_length=500)
 
     class Meta:
-        ordering = ('text',)
+        ordering = ('post_id',)
 
     def __str__(self):
         return self.post_id
@@ -17,6 +17,9 @@ class Coments(models.Model):
     comment_id = models.AutoField(primary_key=True)
     body_text = models.CharField(max_length=200)
     postId = models.ForeignKey(Posts, related_name='comments', on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ('comment_id')
 
     def __str__(self):
         return self.postId
