@@ -11,7 +11,7 @@ class Posts(models.Model):
         ordering = ('post_id',)
 
     def __str__(self):
-        return self.post_id
+        return self.title
 
 class Coments(models.Model):
     comment_id = models.AutoField(primary_key=True)
@@ -22,4 +22,4 @@ class Coments(models.Model):
         ordering = ('comment_id',)
 
     def __str__(self):
-        return self.postId
+        return self.body_text
